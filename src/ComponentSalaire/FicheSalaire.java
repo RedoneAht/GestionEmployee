@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import ComponentEmployee.Employee;
 
 public class FicheSalaire {
-	private Employee e;
+	private int matriculeEmployee;
 	private int numFiche;
 	private LocalDate dateF;
 	private int nbHeures;
@@ -14,20 +14,20 @@ public class FicheSalaire {
 	private float taxes;
 	private float montantNet;
 	
-	public FicheSalaire(Employee e,int numFiche, LocalDate dateF, int nbHeures, float tauxH) {
+	public FicheSalaire(int matriculeEmployee,int numFiche, LocalDate dateF, int nbHeures, float tauxH) {
 		super();
-		this.e=e;
+		this.matriculeEmployee=matriculeEmployee;
 		this.numFiche = numFiche;
 		this.dateF = dateF;
 		this.nbHeures = nbHeures;
 		this.tauxH = tauxH;
 	}
 	
-	public Employee getE() {
-		return e;
+	public int getMatriculeEmployee() {
+		return matriculeEmployee;
 	}
-	public void setE(Employee e) {
-		this.e = e;
+	public void setmatriculeEmployee(int matriculeEmployee) {
+		this.matriculeEmployee = matriculeEmployee;
 	}
 	public int getNumFiche() {
 		return numFiche;

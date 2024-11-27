@@ -1,44 +1,36 @@
 package main;
 
-import java.time.LocalDate;
-import java.util.Scanner;
+import java.awt.FlowLayout;
 
-import ComponentEmployee.Employee;
-import ComponentEmployee.GestionEmployee;
-import ComponentSalaire.FicheSalaire;
-import ComponentSalaire.GestionSalaire;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import Views.EmployeeManagementUI;
+import Views.FicheSalaireManagementUI;
 
 public class Main {
-	
-	static public void main(String [] args) {
-		
-		GestionEmployee ge = new GestionEmployee();
-		GestionSalaire gs = new GestionSalaire();
-		
-		Scanner input = new Scanner(System.in);
+    private JFrame frame;
 
-		System.out.println("Entrer le matricule:");
-		int matricule = input.nextInt();
-		
-		System.out.println("Entrer le nom:");
-		String nom = input.next();
-		
-		System.out.println("Entrer le prenom:");
-		String prenom = input.next();
-		
-		System.out.println("Entrer ladresse:");
-		String adresse = input.next();
-		
-		Employee e = new Employee(matricule,nom,prenom,adresse);
-		FicheSalaire fiche = new FicheSalaire(e, 1, LocalDate.now(), 40, 15.0f);
-		
-		ge.ajouterEmployee(e);
-		ge.AfficherEmployees();
-		
-		gs.calculerSalaire(fiche);  
+    public Main() {
+        frame = new JFrame("Gestion des Employés et Fiches de Salaire");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout());
 
-        gs.afficherFicheSalaire(fiche);
-     
-		
-	}
+        JButton manageEmployeesButton = new JButton("Gérer les Employés");
+        JButton manageSalariesButton = new JButton("Gérer les Fiches de Salaire");
+
+        manageEmployeesButton.addActionListener(e -> new EmployeeManagementUI());
+        manageSalariesButton.addActionListener(e -> new FicheSalaireManagementUI());
+
+        frame.add(manageEmployeesButton);
+        frame.add(manageSalariesButton);
+        frame.setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(Main::new);
+    }
 }
+

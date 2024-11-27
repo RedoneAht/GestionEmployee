@@ -6,23 +6,23 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Iterator;
 
-public class GestionEmployee {
+import Interfaces.GestionEmployeeInterface;
+
+public class GestionEmployee implements GestionEmployeeInterface{
 	private Connection connection;
 
     public GestionEmployee() {
         try {
             // Connexion à la base de données
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionemployee", "", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionemployee", "root", "");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void ajouterEmployee(Employee e) {
-        String sql = "INSERT INTO Employee (matricule, nom, prenom, adresse) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (matricule, nom, prenom, adress) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, e.getMatricule());
             stmt.setString(2, e.getNom());
@@ -35,7 +35,7 @@ public class GestionEmployee {
     }
 
     public void ajouterEmployee(int m, String nom, String prenom, String adresse) {
-        String sql = "INSERT INTO Employee (matricule, nom, prenom, adresse) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (matricule, nom, prenom, adress) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, m);
             stmt.setString(2, nom);
@@ -92,7 +92,7 @@ public class GestionEmployee {
                     rs.getInt("matricule"),
                     rs.getString("nom"),
                     rs.getString("prenom"),
-                    rs.getString("adresse")
+                    rs.getString("adress")
                 );
             }
         } catch (SQLException ex) {
@@ -110,7 +110,7 @@ public class GestionEmployee {
                 System.out.println("Matricule: " + rs.getInt("matricule"));
                 System.out.println("Nom: " + rs.getString("nom"));
                 System.out.println("Prenom: " + rs.getString("prenom"));
-                System.out.println("Adresse: " + rs.getString("adresse"));
+                System.out.println("Adresse: " + rs.getString("adress"));
                 System.out.println("------------------------");
             }
         } catch (SQLException ex) {
