@@ -15,7 +15,7 @@ public class GestionEmployee {
     public GestionEmployee() {
         try {
             // Connexion à la base de données
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionemployee", "", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/gestionemployee","root", "");
         } catch (SQLException e) {
             e.printStackTrace();
         }
