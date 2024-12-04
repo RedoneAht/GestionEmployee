@@ -21,8 +21,8 @@ public class Main {
         JButton manageEmployeesButton = new JButton("Gérer les Employés");
         JButton manageSalariesButton = new JButton("Gérer les Fiches de Salaire");
 
-        manageEmployeesButton.addActionListener(e -> new EmployeeManagementUI());
-        manageSalariesButton.addActionListener(e -> new FicheSalaireManagementUI());
+        manageEmployeesButton.addActionListener(e -> new EmployeeManagementUI().setVisible(true));
+        manageSalariesButton.addActionListener(e -> new FicheSalaireManagementUI().setVisible(true));
 
         frame.add(manageEmployeesButton);
         frame.add(manageSalariesButton);

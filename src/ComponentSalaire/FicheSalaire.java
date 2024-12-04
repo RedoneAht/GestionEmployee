@@ -14,13 +14,17 @@ public class FicheSalaire {
 	private float taxes;
 	private float montantNet;
 	
-	public FicheSalaire(int matriculeEmployee,int numFiche, LocalDate dateF, int nbHeures, float tauxH) {
+	public FicheSalaire(int matriculeEmployee,int numFiche, LocalDate dateF, int nbHeures, float tauxH , float taxes) {
 		super();
 		this.matriculeEmployee=matriculeEmployee;
 		this.numFiche = numFiche;
 		this.dateF = dateF;
 		this.nbHeures = nbHeures;
 		this.tauxH = tauxH;
+		this.montantBrut = nbHeures * tauxH;
+		this.taxes = taxes;
+		this.montantNet = this.montantBrut - (this.montantBrut * this.taxes);
+		
 	}
 	
 	public int getMatriculeEmployee() {

@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.util.List;
+
 import ComponentSalaire.FicheSalaire;
 
 public interface GestionSalaireInterface {
@@ -8,7 +10,9 @@ public interface GestionSalaireInterface {
 
     void supprimerFicheSalaire(int numFiche);
 
-    void modifierFicheSalaire(int numFiche, double nbHeures, double tauxH, double montantBrut, double taxes, double montantNet);
-
+    public void modifierFicheSalaire(int numFiche, int nbHeures, float tauxH, float taxes);
+    
     void afficherFicheSalaire(int numFiche);
+    
+    public List<FicheSalaire> getAllFiches();
 }

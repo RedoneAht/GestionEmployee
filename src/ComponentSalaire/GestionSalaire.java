@@ -6,6 +6,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import Interfaces.GestionSalaireInterface;
 
@@ -49,20 +52,29 @@ public class GestionSalaire implements GestionSalaireInterface {
         }
     }
 
-    public void modifierFicheSalaire(int numFiche, double nbHeures, double tauxH, double montantBrut, double taxes, double montantNet) {
+    public void modifierFicheSalaire(int numFiche, int nbHeures, float tauxH, float taxes) {
+        // Calcul des montants
+        float montantBrut = nbHeures * tauxH;
+        float montantNet = montantBrut - (montantBrut * taxes);
+
+        // SQL de mise à jour
         String sql = "UPDATE FicheSalaire SET nbHeures = ?, tauxH = ?, montantBrut = ?, taxes = ?, montantNet = ? WHERE numFiche = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setDouble(1, nbHeures);
-            stmt.setDouble(2, tauxH);
-            stmt.setDouble(3, montantBrut);
-            stmt.setDouble(4, taxes);
-            stmt.setDouble(5, montantNet);
+            // Paramètres pour la mise à jour
+            stmt.setInt(1, nbHeures);
+            stmt.setFloat(2, tauxH);
+            stmt.setFloat(3, montantBrut);
+            stmt.setFloat(4, taxes);
+            stmt.setFloat(5, montantNet);
             stmt.setInt(6, numFiche);
+
+            // Exécution de la mise à jour
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
+
 
     public void afficherFicheSalaire(int numFiche) {
         String sql = "SELECT * FROM FicheSalaire WHERE numFiche = ?";
@@ -84,4 +96,31 @@ public class GestionSalaire implements GestionSalaireInterface {
             ex.printStackTrace();
         }
     }
+    
+    public List<FicheSalaire> getAllFiches() {
+        List<FicheSalaire> fiches = new ArrayList<>();
+        String sql = "SELECT * FROM FicheSalaire";
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int matriculeEmployee = rs.getInt("id_Employee");
+                int numFiche = rs.getInt("numFiche");
+                LocalDate dateF = rs.getDate("dateF").toLocalDate();
+                int nbHeures = rs.getInt("nbHeures");
+                float tauxH = rs.getFloat("tauxH");
+                float taxes = rs.getFloat("taxes");
+
+                // Créer l'objet FicheSalaire en utilisant le constructeur approprié
+                FicheSalaire fiche = new FicheSalaire(matriculeEmployee, numFiche, dateF, nbHeures, tauxH, taxes);
+
+                fiches.add(fiche);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return fiches;
+    }
+
 }
