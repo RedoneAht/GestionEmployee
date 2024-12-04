@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 
 import ComponentEmployee.Employee;
 import ComponentEmployee.GestionEmployee;
+import Interfaces.GestionEmployeeInterface;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,10 +18,10 @@ public class EmployeeManagementUI extends JFrame {
     private JTable table;
     private DefaultTableModel model;
 
-    private GestionEmployee gestionEmployee;
+    private GestionEmployeeInterface gestionEmployee;
     private Integer selectedEmployeeId = null;
 
-    public EmployeeManagementUI() {
+    public EmployeeManagementUI() {  
         gestionEmployee = new GestionEmployee();
 
         setTitle("Gestion des Employés");

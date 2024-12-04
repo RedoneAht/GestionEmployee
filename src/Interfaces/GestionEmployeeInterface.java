@@ -1,5 +1,7 @@
 package Interfaces;
 
+import java.util.List;
+
 import ComponentEmployee.Employee;
 
 public interface GestionEmployeeInterface {
@@ -17,4 +19,6 @@ public interface GestionEmployeeInterface {
     Employee chercherEmployee(int m);
 
     void AfficherEmployees();
+    
+    public List<Employee> getAllEmployees();
 }
