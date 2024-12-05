@@ -1,14 +1,13 @@
 package ComponentEmployee;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import Interfaces.GestionEmployeeInterface;
 
@@ -25,7 +24,7 @@ public class GestionEmployee implements GestionEmployeeInterface{
     }
 
     public void ajouterEmployee(Employee e) {
-        String sql = "INSERT INTO Employee (matricule, nom, prenom, adress) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Employee (matricule, nom, prenom, adresse) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, e.getMatricule());
             stmt.setString(2, e.getNom());
@@ -126,7 +125,7 @@ public class GestionEmployee implements GestionEmployeeInterface{
                     rs.getInt("matricule"),
                     rs.getString("nom"),
                     rs.getString("prenom"),
-                    rs.getString("adress")
+                    rs.getString("adresse")
                 );
             }
         } catch (SQLException ex) {
@@ -172,5 +171,3 @@ public class GestionEmployee implements GestionEmployeeInterface{
         }
     }
 }
-	
-

@@ -122,5 +122,45 @@ public class GestionSalaire implements GestionSalaireInterface {
 
         return fiches;
     }
+    
+    public boolean isExistFicheSalaire(int numFiche) {
+        String sql = "SELECT 1 FROM FicheSalaire WHERE numFiche = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, numFiche);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    @Override
+    public FicheSalaire getFicheByNumFiche(int numFiche) {
+        FicheSalaire fiche = null;
+        String query = "SELECT * FROM FicheSalaire WHERE numFiche = ?";
+        
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, numFiche);
+            
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next()) {
+                int matricule = rs.getInt("id_Employee");
+                int nbHeures = rs.getInt("nbHeures");
+                float tauxH = rs.getFloat("tauxH");
+                float taxes = rs.getFloat("taxes");
+                LocalDate dateF = rs.getDate("dateF").toLocalDate();
+                
+                // Créer l'objet FicheSalaire avec les données récupérées
+                fiche = new FicheSalaire(matricule, numFiche, dateF, nbHeures, tauxH, taxes);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return fiche;
+    }
+
 
 }

@@ -15,4 +15,8 @@ public interface GestionSalaireInterface {
     void afficherFicheSalaire(int numFiche);
     
     public List<FicheSalaire> getAllFiches();
+    
+    public boolean isExistFicheSalaire(int numFiche);
+    
+    public FicheSalaire getFicheByNumFiche(int numFiche);
 }

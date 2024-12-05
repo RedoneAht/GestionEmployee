@@ -143,6 +143,7 @@ public class FicheSalaireManagementUI extends JFrame {
                     JOptionPane.showMessageDialog(this, "Erreur : Tous les champs doivent être remplis.");
                     return;  // Ne pas continuer si un champ est vide
                 }
+        	 
         	
             int numFiche = Integer.parseInt(txtNumFiche.getText());
             int matricule = Integer.parseInt(txtMatricule.getText());
@@ -150,6 +151,12 @@ public class FicheSalaireManagementUI extends JFrame {
             float tauxH = Float.parseFloat(txtTauxH.getText());
             float taxes = Float.parseFloat(txtTaxes.getText());
             LocalDate dateF = LocalDate.parse(txtDateF.getText());
+            
+            boolean ficheExists = gestionFicheSalaire.isExistFicheSalaire(numFiche);
+	       	 if(ficheExists == true) {
+	       		JOptionPane.showMessageDialog(this, "Erreur : Matricule existe.");
+	       		return;
+	       	 }
 
             // Vérifier si l'employé existe
             if (!gestionEmployee.isExistEmployee(matricule)) {
